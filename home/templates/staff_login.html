@@ -1,0 +1,36 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+{% block title %}Staff Login{% endblock %}
+{% block background %}{% endblock %}
+{% block body %}
+<center>
+     <h2><font color="#30352f">Staff Login</font></h2>
+        <img src="{% static 'myapp/images/person.png'%}" width="75" height="75">
+    <div class="container">
+         <div class="row">
+			<div class="col"></div>
+			<div class="col">
+        <form role="form" name="frm" action="{% url 'staff_login' %}"
+              method="post">
+            {% csrf_token %}
+             <div class="form-group">
+                 <label for="uname">User Name</label>
+                 <input class="form-control" type="text" name="uname" id="uname" required>
+             </div>
+             <div class="form-group">
+                 <label for="passwd">Password </label>
+                 <input class="form-control" type="password" name="passwd" id="passwd" required>
+             </div>
+
+                <button type="submit" class="btn btn-info" id="bt" name="bt">Login</button>
+        <button type="reset" class="btn btn-info" id="rt" name="rt">Reset</button>
+            {{msg}}
+        </form>
+          <br>
+                <br>
+    </div>
+             <div class="col"></div>
+         </div>
+    </div>
+</center>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'myapp/staff_base.html' %}
+{% load static %}
+{% block title %}Test Result{% endblock %}
+{% block body %}
+<center>
+    <div class="conatiner">
+        <form role="form" name="frm" action="" method="post">
+            {% csrf_token %}
+            <h2><font color="#366092">The analysed result is {{ category_name}}</font></h2>
+
+        </form>
+    </div>
+</center>
+{% endblock %}

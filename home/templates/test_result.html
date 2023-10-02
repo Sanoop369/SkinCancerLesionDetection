@@ -1,0 +1,60 @@
+{% extends 'user_base.html' %}
+{% load static %}
+{% block title %}Test Result{% endblock %}
+{% block body %}
+<style>
+
+    .green-text {
+        color: green;
+    }
+    
+    .red-text {
+        color: red;
+    }
+    .status-field {
+        /* Add your styles for the status field here */
+        font-weight: bold;
+    }
+</style>
+<center>
+    <div class="container">
+        <form role="form" name="frm" action="" method="post">
+            {% csrf_token %}
+            <h2>
+                <font color="#366092">
+                    The analysed result is
+                    <span class="{% if result == 'Benign' %}green-text{% elif result == 'Malignant' %}red-text{% endif %}">
+                        {{ result }}
+                    </span>
+                </font>
+            </h2>
+            <p class="status-field">Status: {{report.status}}</p>
+        </form>
+        {% if result != 'Not a skin image' %}
+        <a href="{% url 'download_pdf_report' report_id=report.id %}" class="btn btn-info">Download Report</a>
+        {% endif %}
+
+        {% if result == 'Malignant' %}
+        <h1 class="mt-5">Doctor Details</h1>
+        <div class="row">
+            <!-- Replace this block with data from your Django model -->
+            {% for doctor in doctors %}
+            <div class="col-md-4">
+                <div class="card doctor-card">
+                    <img src="{{ doctor.image.url }}" class="card-img-top" alt="{{ doctor.fname }} {{ doctor.lname }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ doctor.fname }} {{ doctor.lname }}</h5>
+                        <p class="card-text">{{ doctor.d_descp }}</p>
+                        <p class="card-text"><strong>Qualifications:</strong> {{ doctor.d_qualification }}</p>
+                        <p class="card-text"><strong>Category:</strong> {{ doctor.d_category }}</p>
+                        <p class="card-text"><strong>Contact:</strong> {{ doctor.contact }}</p>
+                        <p class="card-text"><strong>Email:</strong> {{ doctor.email }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+
+    </div>
+</center>
+{% endblock %}

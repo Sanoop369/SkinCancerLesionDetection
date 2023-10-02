@@ -1,0 +1,21 @@
+{% extends 'myapp/staff_base.html' %}
+{% load static %}
+{% block title %}Search{% endblock %}
+{% block body %}
+<center>
+    <h2><font color="#366092">Search</font></h2>
+    <img src="{% static 'myapp/images/person.png'%}" width="150" height="150">
+    <div class="container">
+    <form role="form" name="frm" action="{% url 'staff_patient_search' %}" method="post">
+            {% csrf_token %}
+           <div class="form-group">
+               <label for="email">Patient Email</label>
+               <input class="form-control" type="email" name="email" placeholder="email" id="email">
+           </div>
+                <button type="submit" class="btn btn-info" id="bt" name="bt">Search</button>
+        <button type="reset" class="btn btn-info" id="rt" name="rt">Reset</button>
+                    {{msg}}
+        </form>
+    </div>
+</center>
+{% endblock %}

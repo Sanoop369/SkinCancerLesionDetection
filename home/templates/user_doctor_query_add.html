@@ -1,0 +1,29 @@
+{% extends 'myapp/user_base.html' %}
+{% load static %}
+{% block title %}Doctor Query{% endblock %}
+{% block body %}
+<center>
+    <h1>Doctor Query Add</h1>
+     <div class="container">
+    <form role="form" name="frm" action="{% url 'user_doctor_query_add'%}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="doctor_id">Doctor :</label>
+            <select class="form-control" id="doctor_id"  name="doctor_id">
+                <option value="0">--Select Doctor--</option>
+                {% for  d in doctor_list%}
+                <option value="{{d.id}}">{{d.fname}} {{d.lname}}</option>
+                {% endfor %}
+            </select>
+        </div>
+       <div class="form-group">
+            <label for="query">Query :</label>
+           <textarea class="form-control"  name="query" id="query"></textarea>
+        </div>
+       <button type="submit" class="btn btn-info" id="bt" name="bt">Add</button>
+        <button type="reset" class="btn btn-info" id="rt" name="rt">Clear</button>
+    </form>
+     </div>
+    <h3>{{msg}}</h3>
+</center>
+{% endblock %}

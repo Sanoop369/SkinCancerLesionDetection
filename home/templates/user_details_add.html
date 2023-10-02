@@ -1,0 +1,206 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}User Registration{% endblock %}
+{% block body %}
+<script>
+    // Custom JavaScript for form validation
+
+    // Function to validate first name
+	function validateFirstName() {
+		const firstName = document.getElementById("fname").value;
+		const errorElement = document.getElementById("fname-error");
+	
+		if (firstName.trim().length < 3) {
+			errorElement.textContent = "First name must have at least 3 characters.";
+			errorElement.style.display = "block";
+			return false;
+		} else {
+			errorElement.style.display = "none";
+			return true;
+		}
+	}
+	
+	// Function to validate last name
+	function validateLastName() {
+		const lastName = document.getElementById("lname").value;
+		const errorElement = document.getElementById("lname-error");
+	
+		
+		if (lastName.trim().length < 3) {
+			errorElement.textContent = "Last name must have at least 3 characters.";
+			errorElement.style.display = "block";
+			return false;
+		} else {
+			errorElement.style.display = "none";
+			return true;
+		}
+	}
+	
+	// Function to validate address
+	function validateAddress() {
+		const address = document.getElementById("addr").value;
+		const errorElement = document.getElementById("addr-error");
+	
+		
+		if (address.trim().length < 15) {
+			errorElement.textContent = "Address must have at least 15 characters.";
+			errorElement.style.display = "block";
+			return false;
+		} else {
+			errorElement.style.display = "none";
+			return true;
+		}
+	}
+	
+	// Function to validate location
+	function validateLocation() {
+		const location = document.getElementById("location").value;
+		const errorElement = document.getElementById("location-error");
+	
+		if (location === "") {
+			errorElement.textContent = "Please select a location.";
+			errorElement.style.display = "block";
+			return false;
+		} else {
+			errorElement.style.display = "none";
+			return true;
+		}
+	}
+	
+	// Function to validate contact
+	function validateContact() {
+		const contact = document.getElementById("contact").value;
+		const errorElement = document.getElementById("contact-error");
+	
+		if (!/^\d{10}$/.test(contact)) {
+			errorElement.textContent = "Please enter a valid 10-digit contact number.";
+			errorElement.style.display = "block";
+			return false;
+		} else {
+			errorElement.style.display = "none";
+			return true;
+		}
+	}
+	function validateEmail() {
+		var email = document.getElementById("email").value;
+		if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+			document.getElementById("email").classList.add("is-invalid");
+			document.getElementById("email-error").style.display = "block";
+		} else {
+			document.getElementById("email").classList.remove("is-invalid");
+			document.getElementById("email-error").style.display = "none";
+		}
+	}
+
+	function validatePassword() {
+		var password = document.getElementById("password").value;
+		if (password.length < 8) {
+			document.getElementById("password").classList.add("is-invalid");
+			document.getElementById("password-error").style.display = "block";
+		} else {
+			document.getElementById("password").classList.remove("is-invalid");
+			document.getElementById("password-error").style.display = "none";
+		}
+	}
+    // Attach event listeners to input fields for real-time validation
+    document.getElementById("fname").addEventListener("input", validateFirstName);
+    document.getElementById("lname").addEventListener("input", validateLastName);
+    document.getElementById("addr").addEventListener("input", validateAddress);
+    document.getElementById("location").addEventListener("change", validateLocation);
+    document.getElementById("contact").addEventListener("input", validateContact);
+
+    // Function to validate the entire form on submission
+    function validateForm() {
+        // Perform all field validations
+        const isFirstNameValid = validateFirstName();
+        const isLastNameValid = validateLastName();
+        const isAddressValid = validateAddress();
+        const isLocationValid = validateLocation();
+        const isContactValid = validateContact();
+
+        // Check if any validation errors exist
+        if (isFirstNameValid && isLastNameValid && isAddressValid && isLocationValid && isContactValid) {
+            return true; // Form is valid, continue with submission
+        } else {
+            return false; // Form is invalid, prevent submission
+        }
+    }
+</script>
+<center>
+    <h2><font color="#366092">User Registration</font></h2>
+	{%for i in messages %}
+     <div class="alert alert-danger" role="alert">
+        {{i}}
+      </div
+{% endfor %}
+
+<div class="container">
+	<div class="row">
+		<div class="col"></div>
+		<div class="col">
+			<form name="frm" role="form" action="" method="post" onsubmit="return validateForm()">
+				{% csrf_token %}
+				<div class="form-group">
+					<label for="fname">First Name</label>
+					<input type="text" class="form-control" name="fname" placeholder="First name" onblur="validateFirstName()" required id="fname">
+					<div class="invalid-feedback" id="fname-error">Please enter your first name.</div>
+				</div>
+				<div class="form-group">
+					<label for="lname">Last Name</label>
+					<input type="text" class="form-control" name="lname" placeholder="Last name"  onblur="validateLastName()"required>
+					<div class="invalid-feedback" id="lname-error">Please enter your last name.</div>
+				</div>
+				<div class="form-group">
+					<label>Gender:</label>
+					<div class="custom-control custom-radio custom-control-inline">
+						<input type="radio" class="custom-control-input" id="gender1" name="gender" value="Male">
+						<label class="custom-control-label" for="gender1">Male</label>
+					</div>
+					<div class="custom-control custom-radio custom-control-inline">
+						<input type="radio" class="custom-control-input" id="gender2" name="gender" value="Female" checked>
+						<label class="custom-control-label" for="gender2">Female</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="addr">Address</label>
+					<input type="text" class="form-control" name="addr" placeholder="Street" required onblur="validateAddress()" id="addr">
+					<div class="invalid-feedback" id="addr-error">Please enter your address.</div>
+				</div>
+				<div class="form-group">
+					<label for="loc">Location</label>
+					<select name="location" id="location" required onblur="validateLocation()">
+						<option value="" disabled selected>Select location</option>
+						{% for i in location %}
+							<option value="{{ i.id }}">{{ i.name }}</option>
+						{% endfor %}
+					</select>
+					<div class="invalid-feedback" id="location-error">Please select a location.</div>
+				</div>
+				<div class="form-group">
+					<label for="contact">Contact</label>
+					<input type="text" class="form-control" name="contact" placeholder="Enter contact" onblur="validateContact()" required id="contact">
+					<div class="invalid-feedback" id="contact-error">Please enter a valid contact number.</div>
+				</div>
+				<div class="form-group">
+					<label for="email">Email (Will be used as username)</label>
+					<input type="email" class="form-control" name="email" required placeholder="Enter email id" id="email" onblur="validateEmail()">
+					<div class="invalid-feedback" id="email-error">Please enter a valid email address.</div>
+				</div>
+				<div class="form-group">
+					<label for="password">Password</label>
+					<input type="password" class="form-control" name="password" required placeholder="Enter password" id="password" onblur="validatePassword()">
+					<div class="invalid-feedback" id="password-error">Password must have at least 8 characters.</div>
+				</div>
+				<button type="submit" class="btn btn-info" id="bt" name="bt">Register</button>
+				<button type="reset" class="btn btn-info" id="rt" name="rt">Reset</button>
+				{{msg}}
+			</form>
+</div>
+		<div class="col"></div>
+	</div>
+</div>
+</center>
+
+
+
+{% endblock %}

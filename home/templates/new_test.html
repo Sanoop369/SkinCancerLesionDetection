@@ -1,0 +1,20 @@
+{% extends 'user_base.html' %}
+{% load static %}
+{% block title %}Patient Test Add{% endblock %}
+{% block body %}
+<center>
+    <h2><font color="#366092">New Test</font></h2>
+<div class="container">
+    <form name="frm" role="form" action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+        <div class="form-group">
+			<label for="document">Please Upload Your Skin Picture</label>
+			<input type="file" class="form-control" name="document" id="document" accept="image/*"></td>
+		</div>
+	    <button type="submit" class="btn btn-info" id="bt" name="bt">Analyse</button>
+        <button type="reset" class="btn btn-info" id="rt" name="rt">Reset</button>
+            {{msg}}
+    </form>
+</div>
+</center>
+{% endblock %}

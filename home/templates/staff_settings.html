@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+{% load static %}
+<style>
+    ul#menu {
+        padding: 0
+    }
+    ul#menu li {
+        display: inline;
+    }
+    ul#menu li a {
+        background-color: #eadb09;
+        color: #30352f;
+        padding: 5px 10px;
+        text-decoration: none;
+        font: 700 15px cursive;
+        border-radius: 4px 4px 0 0;
+    }
+    ul#menu li a:hover {
+        background-color: #30352f;
+        color: #eadb09;
+        font: 700 18px fantasy;
+        border-radius: 4px 4px 0 0;
+    }
+</style>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Staff Settings</title>
+</head>
+<body>
+
+<center>
+    <h1 ><font color="#30352f">Skin Lesiaon Detection</font></h1>
+<ul id="menu">
+        <li><a href="{% url 'staff_settings' %}">Home</a></li>
+        <li><a href="{% url 'staff_changepassword' %}">Change Password</a></li>
+        <li><a href="{% url 'staff_home' %}">Back</a></li>
+    </ul>
+
+    <h2><font color="#366092">Settings Home</font></h2>
+    <img src="{% static 'myapp/images/settings.png'%}" width="200" height="200">
+    <form name="frm" action="" method="post">
+            {% csrf_token %}
+
+    </form>
+</center>
+</body>
+</html>

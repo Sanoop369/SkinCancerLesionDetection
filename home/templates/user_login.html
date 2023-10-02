@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}User Login{% endblock %}
+{% block background %}{% endblock %}
+{% block body %}
+<center>
+     <h2><font color="#366092">User Login</font></h2>
+{%for i in messages %}
+     <div class="alert alert-danger" role="alert">
+        {{i}}
+      </div
+{% endfor %}
+
+
+
+        <img src="{% static 'myapp/images/person.png'%}" width="75" height="75">
+    <div class="container">
+        <div class="row">
+		<div class="col"></div>
+		<div class="col">
+        <form name="frm" action=""
+              method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="uname">Email ID </label>
+                <input class="form-control" type="email" name="uname"  onblur="validateEmail()" id="email" required>
+                <div class="invalid-feedback" id="email-error">Please enter a valid email address.</div>
+            </div>
+                <div class="form-group">
+                    <label for="passwd">Password</label>
+                    <input class="form-control" type="password" onblur="validatePassword()" name="passwd" id="password" required>
+                    <div class="invalid-feedback" id="password-error">Password must have at least 8 characters.</div>
+                </div>
+                <br><br>
+            <button type="submit" class="btn btn-info" id="bt" name="bt">Login</button>
+            <button type="reset" class="btn btn-info" id="rt" name="rt">Reset</button>
+            {{msg}}
+
+        </form>
+            <br/>
+            <br><br>
+            <a href="{%url 'user_register'%}">New User</a>
+            <br>
+            <br>
+    </div>
+            <div class="col"></div>
+        </div>
+    </div>
+</center>
+<script>
+    // Custom JavaScript for form validation
+
+    // Function to validate first name
+
+	function validateEmail() {
+		var email = document.getElementById("email").value;
+		if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+			document.getElementById("email").classList.add("is-invalid");
+			document.getElementById("email-error").style.display = "block";
+		} else {
+			document.getElementById("email").classList.remove("is-invalid");
+			document.getElementById("email-error").style.display = "none";
+		}
+	}
+
+	function validatePassword() {
+		var password = document.getElementById("password").value;
+		if (password.length < 8) {
+			document.getElementById("password").classList.add("is-invalid");
+			document.getElementById("password-error").style.display = "block";
+		} else {
+			document.getElementById("password").classList.remove("is-invalid");
+			document.getElementById("password-error").style.display = "none";
+		}
+	}
+    // Attach event listeners to input fields for real-time validation
+ 
+    // Function to validate the entire form on submission
+   
+</script>
+{% endblock %}
