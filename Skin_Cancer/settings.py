@@ -49,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+CSRF_TRUSTED_ORIGINS = ['https://skincancerlesiondetection-production.up.railway.app']
 
 ROOT_URLCONF = 'Skin_Cancer.urls'
 
