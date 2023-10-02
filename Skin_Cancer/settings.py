@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-!4pe+ohs@kc0grb41i#6$^hl9$va7$34o(!51dt$2@lj-z7i1k
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.vercel.app','.now.sh','127.0.0.1']
 
 
 # Application definition
@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'Skin_Cancer.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'oigfM9Q66yKzIaEua2Au',
+        'HOST': 'containers-us-west-103.railway.app',
+        'PORT': '6203',
     }
 }
 
@@ -125,7 +129,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'home', 'models'),
-    # Add other static file directories as needed
-]
+
+STATICFILES_DIRS=os.path.join(BASE_DIR,'static'),
+STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles_build','static')
