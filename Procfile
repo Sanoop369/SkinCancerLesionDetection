@@ -1,1 +1,1 @@
-web: gunicorn Skin_Cancer.wsgi --log-file 
+web: gunicorn 'Skin_Cancer.wsgi'
