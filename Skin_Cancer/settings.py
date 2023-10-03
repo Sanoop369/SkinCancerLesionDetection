@@ -75,14 +75,11 @@ WSGI_APPLICATION = 'Skin_Cancer.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'oigfM9Q66yKzIaEua2Au',
-        'HOST': 'containers-us-west-103.railway.app',
-        'PORT': '6203',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
